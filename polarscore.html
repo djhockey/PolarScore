@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PolarScore</title>
+    <style>
+      body {
+        background-color: #1d1f2a;
+        color: #fff;
+        font-family: lexend;
+      }
+      #main_text {
+        width: 50%;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 2em;
+        margin-top: 2em;
+        color: #78E3FD;
+      }
+      ul {
+        color: #fff;
+      }
+      input[type="text"],
+      input[type="number"],
+      button {
+        background-color: #4b4d5b;
+        color: #fff;
+        border: none;
+        padding: 0.5em 1em;
+        border-radius: 0.5em;
+        margin-right: 1em;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+      button:hover {
+        background-color: #3b3d4b;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main_text">
+      <h1>PolarScore - Ice Hockey Scorinator for NSS</h1>
+      <p>
+        PolarScore is currently in a beta stage. Currently we are working on
+        <b>IMPLEMENTING SCORING</b
+        ><br /><a href="https://www.youtube.com/channel/UCzhdBJzDGaLpfA0rORVCs6A"
+          >Unrelated, but here is my yt channel. </a
+        >
+      </p>
+      <p>Future features:</p>
+      <ul>
+        <li>Fast, realistic scoring for ice hockey.</li>
+        <li>A ranking system including style tags, tempo, and more.</li>
+        <li>League systems with up to 100 matchdays to score.</li>
+        <li>
+          Team customization including colors, logos, and a uniform customizer!
+          (2d)
+        </li>
+      </ul>
+      <p>Team 1: <input type="text" id="team1"></p>
+      <p>
+        Team 1 Rank: <input type="number" id="team1_rank" min="1" max="10" value="1">
+      </p>
+      <p>
+        Team 1 Style Mod:
+        <input type="number" id="team1_style" min="-2" max="2" value="0">
+      </p>
+      <p>Team 2: <input type="text" id="team2"></p>
+      <p>
+        Team 2 Rank: <input type="number" id="team2_rank" min="1" max="10" value="1">
+      </p>
+      <p>
+        Team 2 Style Mod:
+        <input type="number" id="team2_style" min="-2" max="2" value="0">
+      </p>
+      <p><button onclick="generateScore()">Generate Score</button></p>
+      <p>
+        <span id="team1_name"></span>: <span id="output1"></span>
+      </p>
+      <p>
+        <span id="team2_name"></span>: <span id="output2"></span>
+      </p>
+    </div>
+    <script>
+      function generateScore() {
+        const input_array = ["0", "1", "1", "1", "2", "2", "2", "3",  "3",  "3",  "3", "4", "4", "5", "5", "6", "7", "8"];
+        const output_array = []; 
+        while (input_array.length > 0) {
+          const index = Math.floor(Math.random() * input_array.length);
+          output_array.push(input_array[index]);
+          input_array.splice(index, 1); 
+        }
+
+        const output_string = output_array.join('');
+        const random_index1 = Math.floor(Math.random() * output_string.length);
+        const output_digit1 = output_string.charAt(random_index1);
+        const team1_rank = parseInt(document.getElementById('team1_rank').value);
+        const team1_style = parseInt(document.getElementById('team1_style').value);
+        const output1 = parseInt(output_digit1) + team1_rank + team1_style;
+        document.getElementById('output1').innerHTML = output1;
+
+        const random_index2 = Math.floor(Math.random() * output_string.length);
+        const output_digit2 = output_string.charAt(random_index2);
+        const team2_rank = parseInt(document.getElementById('team2_rank').value);
+        const team2_style = parseInt(parseInt(document.getElementById('team2_style').value));
+const output2 = parseInt(output_digit2) + team2_rank + team2_style;
+document.getElementById('output2').innerHTML = output2;
+  const team1_name = document.getElementById('team1').value;
+    const team2_name = document.getElementById('team2').value;
+    document.getElementById('team1_name').innerHTML = team1_name;
+    document.getElementById('team2_name').innerHTML = team2_name;
+  }
+  function calculateGrade(score) {
+  if (score >= 9) {
+    return "A";
+  } else if (score >= 7.5) {
+    return "B";
+  } else if (score >= 6) {
+    return "C";
+  } else if (score >= 4) {
+    return "D";
+  } else {
+    return "F";
+  }
+}
+
+function calculateScore(correct, total) {
+  let score = (correct / total) * 10;
+  score = Math.min(score, 10); // limit maximum score to 10
+  score = Math.max(score, 0); // limit minimum score to 0
+  return score;
+}
+
+const numCorrect = 8;
+const numTotal = 10;
+const score = calculateScore(numCorrect, numTotal);
+const grade = calculateGrade(score);
+
+console.log(`You got ${numCorrect} out of ${numTotal}, which is a score of ${score.toFixed(1)} and a grade of ${grade}.`);
+</script>
+<script>
+  function generateScore() {
+    const input_array = ["0", "1", "1", "1", "2", "2", "2", "3",  "3",  "3",  "3", "4", "4", "5", "5", "6", "7", "8"];
+    const output_array = []; 
+    while (input_array.length > 0) {
+      const index = Math.floor(Math.random() * input_array.length);
+      const removed = input_array.splice(index, 1);
+      output_array.push(removed[0]);
+    }
+    const team1_name = document.getElementById("team1").value;
+    const team1_rank = parseInt(document.getElementById("team1_rank").value);
+    const team1_style = parseInt(document.getElementById("team1_style").value);
+    const team2_name = document.getElementById("team2").value;
+    const team2_rank = parseInt(document.getElementById("team2_rank").value);
+    const team2_style = parseInt(document.getElementById("team2_style").value);
+    const team1_score = parseInt(output_array[0]) + team1_rank + team1_style;
+    const team2_score = parseInt(output_array[1]) + team2_rank + team2_style;
+    document.getElementById("team1_name").textContent = team1_name;
+    document.getElementById("output1").textContent = team1_score;
+    document.getElementById("team2_name").textContent = team2_name;
+    document.getElementById("output2").textContent = team2_score;
+  }
+    </script>
+  </body>
+</html>
